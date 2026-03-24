@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nilesh Malavia | Pharmaceutical Scientist</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --navy:#0d1b2a; --deep:#1a2e42; --mid:#2e4a63;
+  --teal:#2a9d8f; --teal-light:#3dbfb0;
+  --gold:#c9a84c; --gold-light:#e8c96a;
+  --slate:#8ba3bc; --fog:#c8d8e8; --white:#ffffff;
+  --rose:#ff9b9b;
+  --serif:'Cormorant Garamond', Georgia, serif;
+  --mono:'DM Mono', monospace;
+  --sans:'DM Sans', system-ui, sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--navy);
+  color:var(--fog);
+  font-family:var(--sans);
+  line-height:1.75;
+  overflow-x:hidden;
+}
+body::before{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:radial-gradient(circle at 1px 1px, rgba(42,157,143,.06) 1px, transparent 0);
+  background-size:40px 40px;
+}
+a{color:inherit}
+section, .hero, .research-section, .contact-section{position:relative;z-index:1}
+
+/* animations */
+.reveal,.reveal-left,.reveal-right{opacity:0;transition:opacity .7s ease, transform .7s ease}
+.reveal{transform:translateY(22px)}
+.reveal-left{transform:translateX(-24px)}
+.reveal-right{transform:translateX(24px)}
+.reveal.visible,.reveal-left.visible,.reveal-right.visible{opacity:1;transform:none}
+@keyframes fadeInDown{from{opacity:0;transform:translateY(-18px)}to{opacity:1;transform:none}}
+@keyframes fadeInUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+
+/* nav */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:1000;height:68px;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 2rem;background:rgba(13,27,42,.88);backdrop-filter:blur(14px);
+  border-bottom:1px solid rgba(42,157,143,.15);
+}
+.nav-brand{
+  font-family:var(--serif);font-size:1.25rem;font-weight:300;letter-spacing:.14em;
+  color:var(--teal-light)
+}
+.nav-links{display:flex;gap:1.6rem}
+.nav-links a{
+  text-decoration:none;font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--slate);transition:color .2s
+}
+.nav-links a:hover{color:var(--teal-light)}
+
+/* hero */
+.hero{
+  min-height:100vh;display:flex;align-items:center;justify-content:center;
+  padding:96px 2rem 3rem;overflow:hidden;
+  background:
+    radial-gradient(circle at 78% 18%, rgba(42,157,143,.18), transparent 28%),
+    radial-gradient(circle at 22% 80%, rgba(201,168,76,.08), transparent 22%),
+    linear-gradient(135deg, #091321 0%, #102238 55%, #14334a 100%);
+}
+#moleculeCanvas{position:absolute;inset:0;width:100%;height:100%;opacity:.28;pointer-events:none}
+.hero-content{max-width:980px;text-align:center;position:relative;z-index:2}
+.hero-badge{
+  display:inline-block;margin-bottom:1.5rem;padding:.45rem 1rem;border-radius:999px;
+  border:1px solid rgba(42,157,143,.35);background:rgba(42,157,143,.08);
+  color:var(--teal-light);font-family:var(--mono);font-size:.68rem;letter-spacing:.18em;
+  text-transform:uppercase;animation:fadeInDown 1s ease forwards
+}
+.hero h1{
+  font-family:var(--serif);font-size:clamp(3rem,6vw,5.5rem);font-weight:300;
+  line-height:1.03;letter-spacing:-.02em;color:var(--white);margin-bottom:.9rem;
+  animation:fadeInUp 1s ease .2s both
+}
+.hero h1 span{font-style:italic;color:var(--teal-light)}
+.hero-sub{
+  max-width:760px;margin:0 auto 2.2rem;color:var(--fog);font-size:1rem;
+  animation:fadeInUp 1s ease .4s both
+}
+.hero-stats{
+  display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-bottom:2.4rem;
+  animation:fadeInUp 1s ease .6s both
+}
+.stat{
+  min-width:120px;padding:1rem 1.1rem;border:1px solid rgba(42,157,143,.16);
+  background:rgba(13,27,42,.45);backdrop-filter:blur(4px)
+}
+.stat-num{display:block;font-family:var(--serif);font-size:2rem;line-height:1;color:var(--teal-light)}
+.stat-label{display:block;margin-top:.4rem;font-family:var(--mono);font-size:.62rem;letter-spacing:.11em;text-transform:uppercase;color:var(--slate)}
+.hero-buttons{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;animation:fadeInUp 1s ease .8s both}
+.btn-primary,.btn-outline{
+  text-decoration:none;padding:.9rem 1.8rem;border-radius:2px;font-family:var(--mono);
+  font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;transition:all .2s
+}
+.btn-primary{background:var(--teal);color:var(--navy);font-weight:500}
+.btn-primary:hover{background:var(--teal-light);transform:translateY(-1px)}
+.btn-outline{border:1px solid rgba(200,216,232,.28);color:var(--fog);background:transparent}
+.btn-outline:hover{border-color:var(--teal);color:var(--teal-light);transform:translateY(-1px)}
+
+/* sections */
+section, .research-section, .contact-section{max-width:1140px;margin:0 auto;padding:6rem 2rem}
+.section-label{
+  font-family:var(--mono);font-size:.68rem;letter-spacing:.24em;text-transform:uppercase;
+  color:var(--teal);margin-bottom:1rem
+}
+.section-title{
+  font-family:var(--serif);font-size:clamp(2rem,4vw,3rem);font-weight:300;color:var(--white);
+  line-height:1.08;margin-bottom:.6rem
+}
+.section-divider{width:56px;height:2px;background:linear-gradient(90deg,var(--teal),transparent);margin-bottom:2.8rem}
+
+/* about */
+#about{background:rgba(26,46,66,.34);border-top:1px solid rgba(42,157,143,.08);border-bottom:1px solid rgba(42,157,143,.08)}
+.about-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:3rem;align-items:start}
+.about-text{font-size:.96rem;color:var(--fog)}
+.about-text p{margin-bottom:1rem}
+.skills-cloud{display:flex;flex-wrap:wrap;gap:.6rem}
+.pill{
+  background:rgba(42,157,143,.06);border:1px solid rgba(42,157,143,.24);color:var(--teal-light);
+  padding:.35rem .8rem;border-radius:2px;font-size:.73rem
+}
+.pill:hover{background:rgba(42,157,143,.12)}
+
+/* timeline */
+.timeline{position:relative;padding-left:2rem}
+.timeline::before{content:'';position:absolute;left:9px;top:8px;bottom:0;width:1px;background:rgba(139,163,188,.18)}
+.tl-item{position:relative;padding-bottom:2rem}
+.tl-dot{
+  position:absolute;left:-1px;top:10px;width:18px;height:18px;border-radius:50%;
+  background:var(--navy);border:2px solid var(--teal)
+}
+.tl-card{
+  margin-left:1.6rem;padding:1.5rem 1.5rem 1.2rem;background:rgba(13,27,42,.68);
+  border:1px solid rgba(139,163,188,.12);border-radius:4px;transition:.2s
+}
+.tl-card:hover{border-color:rgba(42,157,143,.28);transform:translateY(-2px)}
+.tl-header{display:flex;justify-content:space-between;gap:1rem;align-items:flex-start;margin-bottom:.3rem}
+.tl-title{font-family:var(--serif);font-size:1.35rem;font-weight:300;color:var(--white);line-height:1.2}
+.tl-date{font-family:var(--mono);font-size:.66rem;color:var(--teal);letter-spacing:.08em;white-space:nowrap}
+.tl-org{font-family:var(--mono);font-size:.68rem;color:var(--slate);margin-bottom:.8rem}
+.tl-bullets{list-style:none}
+.tl-bullets li{position:relative;padding:.45rem 0 .45rem 1.3rem;color:var(--fog);font-size:.88rem;border-bottom:1px solid rgba(139,163,188,.06)}
+.tl-bullets li:last-child{border-bottom:none}
+.tl-bullets li::before{content:'—';position:absolute;left:0;color:var(--teal);font-family:var(--mono)}
+
+/* research */
+.research-section{max-width:none;background:rgba(13,27,42,.46)}
+.research-inner{max-width:1140px;margin:0 auto}
+.molecule-wrapper{
+  background:rgba(13,27,42,.7);border:1px solid rgba(42,157,143,.16);border-radius:4px;
+  padding:1.2rem;margin-bottom:2rem;overflow:auto
+}
+#researchCanvas{width:100%;height:auto;display:block}
+.research-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+.research-card{
+  background:rgba(13,27,42,.7);border:1px solid rgba(139,163,188,.12);padding:1.5rem;border-radius:4px
+}
+.research-card:hover{border-color:rgba(42,157,143,.28)}
+.research-icon{font-size:1.4rem;margin-bottom:.7rem;animation:float 4s ease-in-out infinite}
+.research-card h3{font-family:var(--serif);font-size:1.2rem;font-weight:300;color:var(--white);margin-bottom:.6rem}
+.research-card p{font-size:.88rem;color:var(--fog)}
+
+/* publications */
+#publications{background:transparent}
+.pub-list{display:grid;gap:1rem}
+.pub-item{
+  background:rgba(13,27,42,.68);border:1px solid rgba(139,163,188,.12);padding:1.35rem 1.4rem;border-radius:4px
+}
+.pub-item:hover{border-color:rgba(42,157,143,.28)}
+.pub-title{font-family:var(--serif);font-size:1.15rem;font-style:italic;color:var(--white);line-height:1.35;margin-bottom:.45rem}
+.pub-journal{font-size:.84rem;color:var(--slate)}
+.pub-badge{
+  display:inline-block;margin-top:.7rem;padding:.2rem .55rem;border-radius:2px;font-family:var(--mono);
+  font-size:.58rem;letter-spacing:.08em;text-transform:uppercase
+}
+.badge-accepted,.badge-published{background:rgba(42,157,143,.12);border:1px solid rgba(42,157,143,.26);color:var(--teal-light)}
+.badge-review{background:rgba(201,168,76,.10);border:1px solid rgba(201,168,76,.22);color:var(--gold-light)}
+.badge-patent{background:rgba(255,155,155,.10);border:1px solid rgba(255,155,155,.24);color:var(--rose)}
+
+/* awards + education */
+.awards-grid,.edu-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem}
+.award-card,.edu-card{
+  background:rgba(13,27,42,.68);border:1px solid rgba(139,163,188,.12);padding:1.4rem;border-radius:4px
+}
+.award-card:hover,.edu-card:hover{border-color:rgba(42,157,143,.28)}
+.award-icon{font-size:1.4rem;margin-bottom:.7rem;color:var(--gold)}
+.award-name,.edu-deg{font-family:var(--serif);font-size:1.2rem;font-weight:300;color:var(--white);line-height:1.25;margin-bottom:.35rem}
+.award-org,.edu-school,.edu-year{font-size:.82rem;color:var(--slate)}
+.edu-gpa{margin-top:.7rem;font-family:var(--mono);font-size:.68rem;color:var(--gold-light);letter-spacing:.08em}
+
+/* contact */
+.contact-section{
+  max-width:none;background:linear-gradient(135deg, rgba(26,46,66,.8), rgba(13,27,42,.96));
+  text-align:center;padding:7rem 2rem
+}
+.contact-section .section-title{margin-bottom:1rem}
+.contact-section p{color:var(--fog);max-width:720px;margin:0 auto 2rem}
+.contact-links{display:flex;justify-content:center;gap:1rem;flex-wrap:wrap}
+.contact-link{
+  text-decoration:none;padding:.85rem 1.4rem;border:1px solid rgba(139,163,188,.2);border-radius:2px;
+  font-family:var(--mono);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--slate)
+}
+.contact-link:hover{border-color:var(--teal);color:var(--teal-light)}
+
+@media (max-width: 900px){
+  .about-grid,.research-grid{grid-template-columns:1fr}
+  .tl-header{flex-direction:column}
+}
+@media (max-width: 700px){
+  nav{padding:0 1rem}
+  .nav-links{display:none}
+  .hero-stats{gap:.7rem}
+  .stat{min-width:calc(50% - .5rem)}
+  section,.research-section,.contact-section{padding:4.3rem 1.2rem}
+  .timeline{padding-left:1.4rem}
+  .tl-card{margin-left:1rem}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand">Nilesh Malavia</div>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#experience">Experience</a>
+    <a href="#research">Research</a>
+    <a href="#publications">Publications</a>
+    <a href="#awards">Awards</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <canvas id="moleculeCanvas"></canvas>
+  <div class="hero-content">
+    <div class="hero-badge">Ph.D. Candidate · Pharmaceutics · UConn 2026</div>
+    <h1>Nilesh <span>Malavia</span></h1>
+    <p class="hero-sub">Formulation Scientist specializing in sterile injectables, long-acting drug delivery, nanoparticle systems, and lyophilization process development.</p>
+    <div class="hero-stats">
+      <div class="stat"><span class="stat-num">9+</span><span class="stat-label">Publications</span></div>
+      <div class="stat"><span class="stat-num">1</span><span class="stat-label">Licensed Patent</span></div>
+      <div class="stat"><span class="stat-num">9+</span><span class="stat-label">Awards</span></div>
+      <div class="stat"><span class="stat-num">6+</span><span class="stat-label">Years Experience</span></div>
+      <div class="stat"><span class="stat-num">8+</span><span class="stat-label">Conferences</span></div>
+    </div>
+    <div class="hero-buttons">
+      <a href="#publications" class="btn-primary">View Publications</a>
+      <a href="#contact" class="btn-outline">Get In Touch</a>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-label reveal">Profile</div>
+  <div class="section-title reveal">About Me</div>
+  <div class="section-divider reveal"></div>
+  <div class="about-grid">
+    <div class="reveal-left">
+      <div class="about-text">
+        <p>Ph.D. candidate in Pharmaceutics at the University of Connecticut with </p>
+        <p>My research bridges bench science with regulatory strategy — developing mechanistic IVIVC models, characterizing depot formation in vivo, and generating CMC-ready datasets that inform bioequivalence submissions for long-acting injectable products.</p>
+        <p>Previously at AbbVie (Drug Product Development) and CIPLA Ltd., with a track record of cross-functional collaboration, technical report authoring, and impactful scientific presentations at international conferences.</p>
+      </div>
+    </div>
+    <div class="reveal-right">
+      <p style="font-weight:700;color:var(--navy);margin-bottom:1rem;font-size:0.85rem;text-transform:uppercase;letter-spacing:1px;">Core Competencies</p>
+      <div class="skills-cloud">
+        <span class="pill">Sterile Injectables</span>
+        <span class="pill">Lyophilization</span>
+        <span class="pill">LNP / Nanoparticles</span>
+        <span class="pill">PLGA Microspheres</span>
+        <span class="pill">LAI Drug Products</span>
+        <span class="pill">Amorphous Solid Dispersions</span>
+        <span class="pill">Pre-formulation</span>
+        <span class="pill">HPLC / UPLC</span>
+        <span class="pill">DSC / TGA / XRPD</span>
+        <span class="pill">DLS / Zeta Potential</span>
+        <span class="pill">IVIVC / PBPK</span>
+        <span class="pill">GastroPlus</span>
+        <span class="pill">DoE / QbD</span>
+        <span class="pill">CMC Documentation</span>
+        <span class="pill">505(b)(2) Submissions</span>
+        <span class="pill">Regulatory CMC</span>
+        <span class="pill">Python</span>
+        <span class="pill">GMP Compliance</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<div style="background:var(--light-bg);padding:4px 0;">
+
+</div>
+
+<!-- RESEARCH SECTION WITH ANIMATION -->
+<div class="research-section" id="research">
+  <div class="research-inner">
+    <div class="section-label reveal">Focus Areas</div>
+    <div class="section-title reveal">Graduate Research</div>
+    <div class="section-divider reveal"></div>
+
+    <!-- Animated particle release diagram -->
+    <div class="molecule-wrapper reveal">
+      <canvas id="researchCanvas" width="700" height="200"></canvas>
+    </div>
+
+    <div class="research-grid">
+      <div class="research-card reveal">
+        <div class="research-icon">💉</div>
+        <h3>Long-Acting Injectable Depots</h3>
+        <p>Mechanistic characterization of intramuscular depot formation, in vivo stability, and drug release from complex suspension-based LAI drug products. Investigated agglomeration, hydration-driven transformation, and macrophage effects on dissolution.</p>
+      </div>
+      <div class="research-card reveal">
+        <div class="research-icon">🧪</div>
+        <h3>In Vitro Release & IVIVC</h3>
+        <p>Developed novel dissolution adapter devices (USP Apparatus II & IV) for LAI testing under physiologically relevant conditions. Built mechanistic PBPK/IVIVC models (GastroPlus, Phoenix WinNonlin) supporting bioequivalence strategy.</p>
+      </div>
+      <div class="research-card reveal">
+        <div class="research-icon">📊</div>
+        <h3>Physicochemical Characterization</h3>
+        <p>Comprehensive solid-state and biophysical characterization using DSC, TGA, XRPD, FTIR, DLS, SEM/TEM, and microscopy to assess CQAs, polymorphic stability, colloidal behavior, and manufacturability.</p>
+      </div>
+      <div class="research-card reveal">
+        <div class="research-icon">🔬</div>
+        <h3>Nanoparticle & LNP Systems</h3>
+        <p>18-month long-term stability characterization of liposomal nanoparticle reference materials across 7 formulation variants. Developed UPLC-CAD analytical methods for lipid degradation pathway analysis.</p>
+      </div>
+      <div class="research-card reveal">
+        <div class="research-icon">⚗️</div>
+        <h3>Process Development & QbD</h3>
+        <p>Applied DoE/QbD strategies for systematic formulation screening, critical quality attribute definition, and process parameter optimization. Generated regulatory-ready CMC datasets across multiple sterile parenteral programs.</p>
+      </div>
+      <div class="research-card reveal">
+        <div class="research-icon">📝</div>
+        <h3>Regulatory CMC & IP</h3>
+        <p>FDA-funded BAA program (contract reporting), CMC data package preparation, 505(b)(2) submission support. Inventor of U.S. Patent 63/464,677 — dissolution adapter device licensed and commercialized by PION Inc.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PUBLICATIONS -->
+<section id="publications">
+  <div class="section-label reveal">Scientific Output</div>
+  <div class="section-title reveal">Publications & Patent</div>
+  <div class="section-divider reveal"></div>
+  <div class="pub-list">
+
+    <div class="pub-item reveal">
+      <span class="pub-badge badge-patent">Patent</span>
+      <div class="pub-title">U.S. Patent No. 63/464,677 — Dissolution Adapter, Method of Manufacture and Method of Use Thereof</div>
+      <div class="pub-journal">Licensed & Commercialized by PION Inc. · Filed May 2024</div>
+    </div>
+
+    <div class="pub-item reveal">
+      <span class="pub-badge badge-review">Under Review</span>
+      <div class="pub-title">Mathematical modeling of drug release from long-acting suspensions</div>
+      <div class="pub-journal">Malavia N., Bao Q., Silva D.A., Wang Y., Alam K., Lukacova V. and Burgess D.J. · Journal of Controlled Release, 2026</div>
+    </div>
+
+    <div class="pub-item reveal">
+      <span class="pub-badge badge-review">Under Review</span>
+      <div class="pub-title">Mechanistic Understanding of LAI Suspension Intramuscular Depot Formation: A Physicochemical Perspective</div>
+      <div class="pub-journal">Malavia N. et al. · Journal of Controlled Release, 2026</div>
+    </div>
+
+    <div class="pub-item reveal">
+      <span class="pub-badge badge-accepted">Accepted</span>
+      <div class="pub-title">Impact of macrophages on dissolution of prodrugs long-acting injectable suspensions</div>
+      <div class="pub-journal">Malavia N., Bao Q., Maurus K. et al. · International Journal of Pharmaceutics, 2026</div>
+    </div>
+
+    <div class="pub-item reveal">
+      <span class="pub-badge badge-published">Published</span>
+      <div class="pub-title">Insights into development of long-acting injectable suspensions</div>
+      <div class="pub-journal">Malavia N. & Burgess D.J. · Journal of Controlled Release, 114721, 2026</div>
+    </div>
+
+    <div class="pub-item reveal">
+      <span class="pub-badge badge-published">Published</span>
+      <div class="pub-title">Mechanistic Modeling of Intramuscular Administration of a Long-acting Injectable Accounting for Tissue Response at the Depot Site</div>
+      <div class="pub-journal">Silva D.A., Le Merdy M., Mullin J., Malavia N. et al. · The AAPS Journal, 28(1), 1–15, 2026</div>
+    </div>
+
+    <div class="pub-item reveal">
+      <span class="pub-badge badge-published">Published</span>
+      <div class="pub-title">Impact of agglomeration on in vitro performance of long-acting injectable suspensions</div>
+      <div class="pub-journal">Malavia N. et al. · International Journal of Pharmaceutics, 673, 125390, 2025</div>
+    </div>
+
+    <div class="pub-item reveal">
+      <span class="pub-badge badge-published">Published</span>
+      <div class="pub-title">Novel dissolution methods for drug release testing of Long-Acting injectables</div>
+      <div class="pub-journal">Malavia N., Bao Q. and Burgess D.J. · International Journal of Pharmaceutics, 664, 124634, 2024</div>
+    </div>
+
+    <div class="pub-item reveal">
+      <span class="pub-badge badge-published">Published</span>
+      <div class="pub-title">Development of mechanistic in vitro–in vivo extrapolation to support bioequivalence assessment of long-acting injectables</div>
+      <div class="pub-journal">Amaral D., Le Merdy M., Alam K.D., Malavia N. et al. · Pharmaceutics, 16(4), 552, 2024</div>
+    </div>
+
+    <div class="pub-item reveal">
+      <span class="pub-badge badge-published">Published</span>
+      <div class="pub-title">Green surfactant-dendrimer aggreplexes: An ingenious way to launch dual attack on arch-enemy cancer</div>
+      <div class="pub-journal">Malavia N., Ghadi R. et al. · Colloids and Surfaces B: Biointerfaces, 204, 111821, 2021</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- AWARDS -->
+<div style="background:var(--light-bg);padding:4px 0;">
+<section id="awards">
+  <div class="section-label reveal">Recognition</div>
+  <div class="section-title reveal">Awards & Fellowships</div>
+  <div class="section-divider reveal"></div>
+  <div class="awards-grid">
+    <div class="award-card reveal"><div class="award-icon">🏆</div><div><div class="award-name">AAIPS Graduate Student Award</div><div class="award-org">AAPS · 2025</div></div></div>
+    <div class="award-card reveal"><div class="award-icon">🏆</div><div><div class="award-name">IPEC Graduate Student Award</div><div class="award-org">AAPS · 2025</div></div></div>
+    <div class="award-card reveal"><div class="award-icon">⭐</div><div><div class="award-name">Best Student Award</div><div class="award-org">Boehringer Ingelheim · 2025</div></div></div>
+    <div class="award-card reveal"><div class="award-icon">🎓</div><div><div class="award-name">Dr. Edward A. Khairallah Fellowship</div><div class="award-org">University of Connecticut · 2025</div></div></div>
+    <div class="award-card reveal"><div class="award-icon">🎓</div><div><div class="award-name">Doctoral Dissertation Fellowship</div><div class="award-org">University of Connecticut · 2025</div></div></div>
+    <div class="award-card reveal"><div class="award-icon">🎓</div><div><div class="award-name">Gerald J. Jackson Graduate Student Fellowship</div><div class="award-org">University of Connecticut · 2025</div></div></div>
+    <div class="award-card reveal"><div class="award-icon">🥇</div><div><div class="award-name">Top Research Poster Award</div><div class="award-org">CRS Annual Meeting, Bologna · 2024</div></div></div>
+    <div class="award-card reveal"><div class="award-icon">🥇</div><div><div class="award-name">First Place Academic Research Award</div><div class="award-org">AAPS NERDG · 2024</div></div></div>
+    <div class="award-card reveal"><div class="award-icon">🏅</div><div><div class="award-name">Best Research Poster Award</div><div class="award-org">CRS Annual Meeting, Las Vegas · 2023</div></div></div>
+    <div class="award-card reveal"><div class="award-icon">✈️</div><div><div class="award-name">Graduate Student Travel Award</div><div class="award-org">University of Connecticut · 2024</div></div></div>
+    <div class="award-card reveal"><div class="award-icon">🎓</div><div><div class="award-name">Predoctoral Fellowship</div><div class="award-org">University of Connecticut · 2021</div></div></div>
+  </div>
+</section>
+</div>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="section-label reveal">Academic Background</div>
+  <div class="section-title reveal">Education</div>
+  <div class="section-divider reveal"></div>
+  <div class="edu-grid">
+    <div class="edu-card reveal">
+      <div class="edu-deg">Ph.D. in Pharmaceutics</div>
+      <div class="edu-school">University of Connecticut · Storrs, CT</div>
+      <div class="edu-gpa">GPA: 3.94 / 4.0</div>
+      <div class="edu-year">Expected April 2026</div>
+    </div>
+    <div class="edu-card reveal">
+      <div class="edu-deg">M.S. in Pharmaceutical Sciences</div>
+      <div class="edu-school">NIPER Mohali · Punjab, India</div>
+      <div class="edu-gpa">GPA: 3.90 / 4.0</div>
+      <div class="edu-year">June 2019</div>
+    </div>
+    <div class="edu-card reveal">
+      <div class="edu-deg">B.Pharm.</div>
+      <div class="edu-school">Bombay College of Pharmacy · Mumbai, India</div>
+      <div class="edu-gpa">GPA: 3.90 / 4.0</div>
+      <div class="edu-year">June 2017</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<div class="contact-section" id="contact">
+  <h2>Get In Touch</h2>
+  <p>Open to formulation scientist opportunities in the US — sterile injectables, drug delivery, and CMC roles</p>
+  <div class="contact-links">
+    <a href="mailto:nilesh.malavia@uconn.edu" class="contact-link">nilesh.malavia@uconn.edu</a>
+    <a href="tel:+19599299274" class="contact-link">+1 (959) 929-9274</a>
+    <a href="https://www.linkedin.com/in/nilesh-malviya-69b5139a/-69b5139a/" target="_blank" class="contact-link">LinkedIn Profile</a>
+  </div>
+</div>
+
+<footer>
+  © 2026 Nilesh Malavia · Ph.D. Candidate in Pharmaceutics · University of Connecticut
+</footer>
+
+<script>
+// ── HERO MOLECULE CANVAS ──
+const heroCanvas = document.getElementById('moleculeCanvas');
+const hCtx = heroCanvas.getContext('2d');
+heroCanvas.width = window.innerWidth;
+heroCanvas.height = window.innerHeight;
+
+const nodes = [];
+const edges = [];
+const NODE_COUNT = 40;
+
+for (let i = 0; i < NODE_COUNT; i++) {
+  nodes.push({
+    x: Math.random() * heroCanvas.width,
+    y: Math.random() * heroCanvas.height,
+    vx: (Math.random() - 0.5) * 0.4,
+    vy: (Math.random() - 0.5) * 0.4,
+    r: Math.random() * 3 + 2
+  });
+}
+
+function drawHero() {
+  hCtx.clearRect(0, 0, heroCanvas.width, heroCanvas.height);
+  nodes.forEach(n => {
+    n.x += n.vx; n.y += n.vy;
+    if (n.x < 0 || n.x > heroCanvas.width) n.vx *= -1;
+    if (n.y < 0 || n.y > heroCanvas.height) n.vy *= -1;
+  });
+  for (let i = 0; i < nodes.length; i++) {
+    for (let j = i + 1; j < nodes.length; j++) {
+      const dx = nodes[i].x - nodes[j].x;
+      const dy = nodes[i].y - nodes[j].y;
+      const dist = Math.sqrt(dx*dx + dy*dy);
+      if (dist < 120) {
+        hCtx.strokeStyle = `rgba(125,211,252,${1 - dist/120})`;
+        hCtx.lineWidth = 0.8;
+        hCtx.beginPath();
+        hCtx.moveTo(nodes[i].x, nodes[i].y);
+        hCtx.lineTo(nodes[j].x, nodes[j].y);
+        hCtx.stroke();
+      }
+    }
+  }
+  nodes.forEach(n => {
+    hCtx.beginPath();
+    hCtx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+    hCtx.fillStyle = 'rgba(125,211,252,0.8)';
+    hCtx.fill();
+  });
+  requestAnimationFrame(drawHero);
+}
+drawHero();
+
+window.addEventListener('resize', () => {
+  heroCanvas.width = window.innerWidth;
+  heroCanvas.height = window.innerHeight;
+});
+
+// ── RESEARCH CANVAS — particle release from depot ──
+const rc = document.getElementById('researchCanvas');
+const rCtx = rc.getContext('2d');
+rc.width = Math.min(700, window.innerWidth - 40);
+rc.height = 200;
+
+const particles = [];
+let frameCount = 0;
+
+function spawnParticle() {
+  particles.push({
+    x: rc.width * 0.15,
+    y: rc.height * 0.5 + (Math.random() - 0.5) * 40,
+    vx: Math.random() * 1.5 + 0.5,
+    vy: (Math.random() - 0.5) * 0.8,
+    life: 1,
+    decay: Math.random() * 0.004 + 0.003,
+    r: Math.random() * 3 + 2,
+    color: `hsl(${180 + Math.random() * 40}, 70%, 65%)`
+  });
+}
+
+function drawResearch() {
+  rCtx.clearRect(0, 0, rc.width, rc.height);
+  frameCount++;
+
+  // Draw depot (injection site)
+  const cx = rc.width * 0.15, cy = rc.height * 0.5;
+  const gradient = rCtx.createRadialGradient(cx, cy, 5, cx, cy, 50);
+  gradient.addColorStop(0, 'rgba(46,156,202,0.5)');
+  gradient.addColorStop(1, 'rgba(27,58,107,0)');
+  rCtx.beginPath();
+  rCtx.arc(cx, cy, 45 + Math.sin(frameCount * 0.05) * 3, 0, Math.PI * 2);
+  rCtx.fillStyle = gradient;
+  rCtx.fill();
+  rCtx.beginPath();
+  rCtx.arc(cx, cy, 18, 0, Math.PI * 2);
+  rCtx.fillStyle = 'rgba(46,156,202,0.9)';
+  rCtx.fill();
+  rCtx.fillStyle = 'rgba(255,255,255,0.9)';
+  rCtx.font = 'bold 9px Arial';
+  rCtx.textAlign = 'center';
+  rCtx.fillText('DEPOT', cx, cy + 3);
+
+  // Draw bloodstream line
+  const bloodY = rc.height * 0.5;
+  const bx = rc.width * 0.32;
+  rCtx.strokeStyle = 'rgba(125,211,252,0.3)';
+  rCtx.lineWidth = 16;
+  rCtx.beginPath();
+  rCtx.moveTo(bx, bloodY - 8);
+  rCtx.lineTo(rc.width - 20, bloodY - 8);
+  rCtx.stroke();
+  rCtx.strokeStyle = 'rgba(125,211,252,0.2)';
+  rCtx.lineWidth = 16;
+  rCtx.beginPath();
+  rCtx.moveTo(bx, bloodY + 8);
+  rCtx.lineTo(rc.width - 20, bloodY + 8);
+  rCtx.stroke();
+  rCtx.fillStyle = 'rgba(255,255,255,0.5)';
+  rCtx.font = '9px Arial';
+  rCtx.textAlign = 'left';
+  rCtx.fillText('BLOODSTREAM', bx + 8, bloodY - 12);
+
+  // Spawn particles
+  if (frameCount % 4 === 0) spawnParticle();
+
+  // Draw particles
+  for (let i = particles.length - 1; i >= 0; i--) {
+    const p = particles[i];
+    p.x += p.vx;
+    p.y += p.vy;
+    p.vy += 0.01;
+    p.life -= p.decay;
+    if (p.life <= 0 || p.x > rc.width) { particles.splice(i, 1); continue; }
+    rCtx.beginPath();
+    rCtx.arc(p.x, p.y, p.r * p.life, 0, Math.PI * 2);
+    rCtx.fillStyle = p.color.replace(')', `,${p.life})`).replace('hsl', 'hsla');
+    rCtx.fill();
+  }
+
+  // Labels
+  rCtx.fillStyle = 'rgba(255,255,255,0.6)';
+  rCtx.font = '10px Arial';
+  rCtx.textAlign = 'center';
+  rCtx.fillText('Drug release from LAI depot → systemic absorption', rc.width * 0.6, rc.height - 10);
+
+  requestAnimationFrame(drawResearch);
+}
+drawResearch();
+
+// ── SCROLL REVEAL ──
+const revealEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1 });
+revealEls.forEach(el => observer.observe(el));
+
+// ── SMOOTH SCROLL ──
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+</script>
+</body>
+</html>
